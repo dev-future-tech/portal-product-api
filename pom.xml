@@ -73,6 +73,23 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>3.2.1</version>
+                <configuration>
+                    <to>
+                        <image>anthonyikeda/${project.artifactId}:${project.version}</image>
+                    </to>
+                    <from>
+                        <image>eclipse-temurin:20-jre</image>
+                    </from>
+                    <container>
+                        <mainClass>com.portal.product.ProductApplication</mainClass>
+                        <creationTime>USE_CURRENT_TIMESTAMP</creationTime>
+                    </container>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 

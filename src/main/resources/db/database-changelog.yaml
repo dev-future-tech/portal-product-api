@@ -1,0 +1,69 @@
+databaseChangeLog:
+  - changeSet:
+      id: initial_tables
+      author: Anthony Ikeda
+      changes:
+        - createTable:
+            tableName: product
+            columns:
+              - column:
+                  name: product_id
+                  type: numeric
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: product_name
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: brand
+                  type: varchar(30)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: sku
+                  type: varchar(15)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: weight
+                  type: varchar(15)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: image_url
+                  type: varchar(256)
+                  constraints:
+                    nullable: true
+  - changeSet:
+      id: static_data
+      author: Anthony Ikeda
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  header: name
+                  name: product_name
+                  type: STRING
+              - column:
+                  header: brand
+                  name: brand
+                  type: STRING
+              - column:
+                  header: sku
+                  name: sku
+                  type: STRING
+              - column:
+                  header: weight
+                  name: weight
+                  type: STRING
+            file: ./product.csv
+            encoding: utf-8
+            quotechar: ''''
+            separator: ;
+            tableName: product
+
+
