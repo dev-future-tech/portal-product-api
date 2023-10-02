@@ -19,7 +19,7 @@ public class ProductControllerTest {
     WebTestClient client;
 
     @Test
-    public void testCorsOptionsRequest() throws Exception {
+    public void testCorsOptionsRequest() {
         log.info("Testing CORS...");
         WebTestClient.ResponseSpec response = client.options().uri("http://localhost:8090/product/v1")
                 .header("Origin", "http://localhost:4200")
@@ -34,7 +34,7 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void testGetAllProducts() throws Exception {
+    public void testGetAllProducts() {
         WebTestClient.ResponseSpec response = client.get().uri("/product/v1")
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange();
@@ -43,7 +43,7 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void testGetProduct() throws Exception {
+    public void testGetProduct() {
         WebTestClient.ResponseSpec response = client.get().uri("/product/v1/12345")
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange();
