@@ -16,6 +16,16 @@ public class ProductControllerTest {
     WebTestClient client;
 
     @Test
+    public void testCorsOptionsRequest() throws Exception {
+        WebTestClient.ResponseSpec response = client.options().uri("/product/v1")
+                .header("origin", "http://localhost:4200")
+                .header("Allow-Access-Request-Method", "GET")
+                .exchange();
+        
+        
+    }
+
+    @Test
     public void testGetAllProducts() throws Exception {
         WebTestClient.ResponseSpec response = client.get().uri("/product/v1")
                 .accept(MediaType.APPLICATION_JSON)
