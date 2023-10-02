@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<settings>
+    <servers>
+        <server>
+            <id>schemaorg</id>
+            <username>${env.PACKAGES_SCHEMA_USERNAME}</username>
+            <password>${env.PACKAGES_SCHEMA_SECRET}</password>
+        </server>
+    </servers>
+</settings>
