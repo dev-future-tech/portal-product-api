@@ -1,28 +1,36 @@
 package com.portal.product;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
+import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
-@ExtendWith(SpringExtension.class)
-@WebFluxTest(controllers =ProductController.class)
+@SpringBootTest
+@AutoConfigureWebTestClient
 public class ProductControllerTest {
+
+    private final Logger log = LoggerFactory.getLogger(getClass().getCanonicalName());
 
     @Autowired
     WebTestClient client;
 
     @Test
     public void testCorsOptionsRequest() throws Exception {
-        WebTestClient.ResponseSpec response = client.options().uri("/product/v1")
-                .header("origin", "http://localhost:4200")
-                .header("Allow-Access-Request-Method", "GET")
+        log.info("Testing CORS...");
+        WebTestClient.ResponseSpec response = client.options().uri("http://localhost:8090/product/v1")
+                .header("Origin", "http://localhost:4200")
+                .header("Host", "localhost:4200")
+                .header("Access-Control-Request-Method", "GET")
+                .header("Access-Control-Request-Headers", "authorization")
                 .exchange();
-        
-        
+        response.expectStatus().isOk()
+                .expectHeader().valueEquals("Access-Control-Allow-Origin", "http://localhost:4200")
+                .expectHeader().valueEquals("Access-Control-Allow-Methods", "GET")
+                .expectBody().consumeWith(System.out::println).isEmpty();
     }
 
     @Test
